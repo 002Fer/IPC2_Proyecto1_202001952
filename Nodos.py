@@ -21,6 +21,10 @@ class listaSimple:
             auxiliar.siguiente=nuevoNodo 
         self.tamaño += 1
 
+    def listar_ac(self):
+        auxiliar_dato=self.cabeza
+        while auxiliar_dato !=None:
+            print(auxiliar_dato.datos)
 
 
 
