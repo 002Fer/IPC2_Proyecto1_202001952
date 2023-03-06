@@ -1,7 +1,12 @@
+
 class Nodo:
+
+   
+
     def __init__(self, datos):
         self.datos=datos
         self.siguiente=None
+        
 
 class listaSimple:
     def __init__(self):
@@ -21,10 +26,24 @@ class listaSimple:
             auxiliar.siguiente=nuevoNodo 
         self.tamaño += 1
 
-    def listar_ac(self):
+    def buscar(self,nombre_cel):
+        aux=self.cabeza
+        while aux !=None:
+            if aux.nombre_cel == nombre_cel:
+                print("")
+            aux=aux.siguiente
+
+    def recorrer(self):
         auxiliar_dato=self.cabeza
         while auxiliar_dato !=None:
-            print(auxiliar_dato.datos)
+            print(auxiliar_dato.datos )
+           
+            auxiliar_dato=auxiliar_dato.siguiente
+
+
+        
+        
+        
 
 
 

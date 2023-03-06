@@ -4,7 +4,7 @@ from xml.dom import minidom
 from Muestra import Muestra
 from CeldaViva import CeldaViva
 from Organismo import Organismo
-from os import system, startfile
+from os import system
 
 
 class menu:
@@ -14,24 +14,51 @@ class menu:
         self.mostrarMenu()
     def mostrarMenu(self):
         opcion =''
-        while opcion != '7':
+        while opcion != '6':
             print("-------------Menu-------------")
             print("1. Abrir archivo")
             print("2. Mostrar grafica")
-            print("4. Ingresar Celula")
-            print("5. Celdas para sobrevivir")
-            print("6. Crear XML")
-            print("7. Salir")
+            print("3. Ingresar Celula")
+            print("4. Celdas para sobrevivir")
+            print("5. Crear XML")
+            print("6. Salir")
             opcion=input("Ingrese una de las opciones: ")
             
             if opcion== '1':
                 archivo=askopenfilename(title="Abrir un archivo")
                 archivoxml=minidom.parse(archivo)
                 self.procesoInformacion(archivoxml)
+
+
                 print("Se cargo el archivo")
                     
             elif opcion=='2':
                 self.crearGrafica()
+
+            elif opcion=='3':
+                self.insertarNueva()
+                self.crearGrafica()
+                
+
+
+            elif opcion=='4':
+                
+                listar=self.muestraAnalizada.listaCeldasVivas
+                nodo=listar.cabeza
+                while nodo!=None:
+                    celda:CeldaViva=nodo.datos
+                    print("Listado de celdas vivas")
+                    print(celda.x +" "+celda.y+" "+celda.organismo)
+                    nodo=nodo.siguiente
+                    print("")
+
+                print("Elija una de ceula a analizar")
+                
+                
+                
+
+
+
     def procesoInformacion(self,archivoXml):
 
         columnasX = archivoXml.getElementsByTagName('columnas')
@@ -69,6 +96,21 @@ class menu:
 
         self.muestraAnalizada=nuevaMuestra
 
+    def insertarNueva(self):
+        
+        posx=input("Ingrese la posicion x de la nueva celula: ")
+        posy=input("ingrese la posicion y de la nueva celula ")
+        nombreCel=input("Ingrese el codigo del organismo ")
+        celva_viva=CeldaViva(nombreCel,posx,posy)
+        self.muestraAnalizada.listaCeldasVivas.insertar(celva_viva)
+        
+        
+        
+
+        print('ser cargo la nueva muestra')
+
+
+
     def crearGrafica(self):
         x= self.muestraAnalizada.dimensionX
         y= self.muestraAnalizada.dimensionY
@@ -92,7 +134,7 @@ class menu:
 
             cuentay=0
             while(cuentay< int(y)):
-                if cuentax==0:
+                if cuentax==-1:
                     codigoGrapviz=codigoGrapviz+'|'+str(cuentay)
 
                 else:
@@ -115,6 +157,7 @@ class menu:
                         nodoActual=nodoActual.siguiente
 
                     codigoGrapviz=codigoGrapviz+codigoOrganismo
+                cuentax==0
 
                 cuentay=cuentay+1
             cuentax=cuentax+1
@@ -132,13 +175,10 @@ class menu:
         mi_archivo=open('grafica.dot','w')
         mi_archivo.write(codigoGrapviz)
         mi_archivo.close()
-
+'''
         system('dot -Tpng grafica.dot -o grafica.png')
         system('cd ./grafica.png')
-        startfile('grafica.png')
-
-
-
+        startfile('grafica.png')'''
 
 
 cargarmenu=menu()

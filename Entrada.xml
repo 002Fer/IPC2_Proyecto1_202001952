@@ -18,8 +18,8 @@
         <muestra>
             <codigo>A001</codigo>
             <descripcion>Colonia controlada marciana NZ1</descripcion>
-            <filas>20</filas>
-            <columnas>25</columnas>
+            <filas>19</filas>
+            <columnas>24</columnas>
             <listadoCeldasVivas>
                 <celdaViva>
                     <fila>10</fila>
