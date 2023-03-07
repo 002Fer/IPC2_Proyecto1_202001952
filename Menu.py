@@ -4,7 +4,8 @@ from xml.dom import minidom
 from Muestra import Muestra
 from CeldaViva import CeldaViva
 from Organismo import Organismo
-from os import system
+from os import system,startfile
+import os
 
 
 class menu:
@@ -29,8 +30,14 @@ class menu:
                 archivoxml=minidom.parse(archivo)
                 self.procesoInformacion(archivoxml)
 
+                xcolum=self.muestraAnalizada.dimensionX
+                yfila=self.muestraAnalizada.dimensionY
 
-                print("Se cargo el archivo")
+                if int(xcolum)>10000 and int(yfila)>10000:
+                    print("Limites del archivo excedido")
+                else:
+                    print("Se cargo el archivo")
+                
                     
             elif opcion=='2':
                 self.crearGrafica()
@@ -103,9 +110,6 @@ class menu:
         nombreCel=input("Ingrese el codigo del organismo ")
         celva_viva=CeldaViva(nombreCel,posx,posy)
         self.muestraAnalizada.listaCeldasVivas.insertar(celva_viva)
-        
-        
-        
 
         print('ser cargo la nueva muestra')
 
@@ -148,8 +152,7 @@ class menu:
                         coordenadaY=celdaViva.y
 
                         if(int(cuentax)==int(coordenadaX) and int(cuentay)==int(coordenadaY)):
-                            print("CeldaViva")
-                            print(celdaViva.organismo)
+                            
                             codigoOrganismo="|"+celdaViva.organismo
                             break
                         else:
@@ -175,10 +178,8 @@ class menu:
         mi_archivo=open('grafica.dot','w')
         mi_archivo.write(codigoGrapviz)
         mi_archivo.close()
-'''
-        system('dot -Tpng grafica.dot -o grafica.png')
-        system('cd ./grafica.png')
-        startfile('grafica.png')'''
+
+        os.system("dot -Tpng grafica.dot -o grafica.pdf")
 
 
 cargarmenu=menu()
