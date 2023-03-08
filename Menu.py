@@ -1,4 +1,4 @@
-from Nodos import listaSimple
+
 from tkinter.filedialog import askopenfilename
 from xml.dom import minidom
 from Muestra import Muestra
@@ -32,53 +32,39 @@ class menu:
 
                 xcolum=self.muestraAnalizada.dimensionX
                 yfila=self.muestraAnalizada.dimensionY
-
+                
                 if int(xcolum)>10000 and int(yfila)>10000:
                     print("Limites del archivo excedido")
+                
                 else:
                     print("Se cargo el archivo")
                 
                     
             elif opcion=='2':
-                self.crearGrafica()
+                self.Grafica()
 
             elif opcion=='3':
                 self.insertarNueva()
-                self.crearGrafica()
-                
+                self.Grafica()
 
 
             elif opcion=='4':
-                
-                listar=self.muestraAnalizada.listaCeldasVivas
-                nodo=listar.cabeza
-                while nodo!=None:
-                    celda:CeldaViva=nodo.datos
-                    print("Listado de celdas vivas")
-                    print(celda.x +" "+celda.y+" "+celda.organismo)
-                    nodo=nodo.siguiente
-                    print("")
-
-                print("Elija una de ceula a analizar")
-                
-                
-                
-
-
+                self.analizarcelulas()
+ 
 
     def procesoInformacion(self,archivoXml):
 
-        columnasX = archivoXml.getElementsByTagName('columnas')
-        filasY = archivoXml.getElementsByTagName('filas')
+        columnas = archivoXml.getElementsByTagName('columnas')
+        filas = archivoXml.getElementsByTagName('filas')
         muestra = archivoXml.getElementsByTagName('muestra')
 
-        codigoMuestra = muestra[0].childNodes[1].firstChild.data
+        codMuestra = muestra[0].childNodes[1].firstChild.data
         nombreMuestra= muestra[0].childNodes[3].firstChild.data
 
-        dimensionX= columnasX[0].childNodes[0].data
-        dimensionY= filasY[0].childNodes[0].data
+        tamañoX= columnas[0].childNodes[0].data
+        tamañoY= filas[0].childNodes[0].data
 
-        nuevaMuestra = Muestra(codigoMuestra,nombreMuestra,dimensionX,dimensionY)
+        nuevaMuestra = Muestra(codMuestra,nombreMuestra,tamañoX,tamañoY)
 
         organismoXml= archivoXml.getElementsByTagName('organismo')
 
@@ -111,11 +97,52 @@ class menu:
         celva_viva=CeldaViva(nombreCel,posx,posy)
         self.muestraAnalizada.listaCeldasVivas.insertar(celva_viva)
 
-        print('ser cargo la nueva muestra')
+        print('ser cargo la nueva Celula')
+
+    def mostrarlistadoCelulas(self):
+        listar=self.muestraAnalizada.listaCeldasVivas
+        nodo=listar.cabeza
+        while nodo!=None:
+            celda:CeldaViva=nodo.datos
+            print("Listado de celdas vivas")
+            print(celda.x +" "+celda.y+" "+celda.organismo)
+            nodo=nodo.siguiente
+            print("")
+
+
+    def analizarcelulas(self):
+        self.mostrarlistadoCelulas()
+        listar=self.muestraAnalizada.listaCeldasVivas
+
+        """nodoAux=listar.cabeza
+        while nodoAux!=None:
+            nuevaCelda:CeldaViva=nodoAux.datos
+            nodoX=nuevaCelda.x
+            nodoY=nuevaCelda.y
+            nodoCod=nuevaCelda.organismo
+            print("Elija una de ceula a analizar")
+            posx=int(input('Ingrese la posicion x que desea analizar'))
+            posy=int(input('Ingrese la posicion Y que desea analizar'))
+            nombre=input('Ingrese el nombre de la celula')
+            contador=0
+            if int(posx)==nodoX and int(posy)==nodoY:
+                print("empieza a analizar")
+                
+                if contador==0:
+                    sup_izquierdax=posx-2
+                    sup_izquierday=posy-2
+                    print('Posible punto para poder sobrevivir en: '+"x:"+str(sup_izquierdax)+" y:"+str(sup_izquierday))
+                else:
+                    print('no se puedee')"""
+                    
 
 
 
-    def crearGrafica(self):
+
+
+
+
+    def Grafica(self):
         x= self.muestraAnalizada.dimensionX
         y= self.muestraAnalizada.dimensionY
 

@@ -8,5 +8,3 @@ class CeldaViva:
         self.y=y
         self.organismo=organismo
 
-    def obtenerPosicion(self, dimensionMatriz)->int:
-        return self.x + self.y * dimensionMatriz

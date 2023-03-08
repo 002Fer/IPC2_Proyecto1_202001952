@@ -33,12 +33,6 @@ class listaSimple:
                 print("")
             aux=aux.siguiente
 
-    def recorrer(self):
-        auxiliar_dato=self.cabeza
-        while auxiliar_dato !=None:
-            print(auxiliar_dato.datos )
-           
-            auxiliar_dato=auxiliar_dato.siguiente
 
 
         
